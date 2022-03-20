@@ -47,6 +47,7 @@ const outputItems = results.map(({ item }) => {
     uid: item.url,
     title: item.title,
     subtitle: item.url,
+    arg: item.url,
   };
 });
 
