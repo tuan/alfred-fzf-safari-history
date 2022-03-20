@@ -1,13 +1,28 @@
-import alfy from 'alfy';
+import sqlite3 from 'sqlite3'
+import { open } from 'sqlite'
 
-const data = await alfy.fetch('https://jsonplaceholder.typicode.com/posts');
+// const SAFARI_HISTORY_DB_PATH = '~/Library/Safari/History.db';
+const SAFARI_HISTORY_DB_PATH = '/tmp/safari-history.db'; // TODO: Need to bypass security during dev
 
-const items = alfy
-	.inputMatches(data, 'title')
-	.map(element => ({
-		title: element.title,
-		subtitle: element.body,
-		arg: element.id
-	}));
+const db = await open({
+  filename: SAFARI_HISTORY_DB_PATH,
+  driver: sqlite3.Database
+});
 
-alfy.output(items);
+const rows = await db.all(`
+  SELECT
+    v.title,
+    i.url,
+    i.visit_count_score
+  FROM
+    history_items i
+  JOIN history_visits v
+    ON v.history_item = i.id
+  GROUP BY
+    v.title
+  ORDER BY
+    v.visit_time DESC
+  LIMIT 3
+`);
+
+console.log(rows);
