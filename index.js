@@ -1,12 +1,13 @@
 import sqlite3 from "sqlite3";
 import { open } from "sqlite";
-import { Fzf, byLengthAsc } from "fzf";
+import { AsyncFzf, byLengthAsc } from "fzf";
 import alfy from "alfy";
 
 // const SAFARI_HISTORY_DB_PATH = '~/Library/Safari/History.db';
 const SAFARI_HISTORY_DB_PATH = "/tmp/safari-history.db"; // TODO: Need to bypass security during dev
 const QUERY_LIMIT = 1000;
 const DB_QUERY_RESULT_CACHE_KEY = "db_query_result";
+const FZF_LIMIT = 15;
 
 const db = await open({
   filename: SAFARI_HISTORY_DB_PATH,
@@ -32,12 +33,13 @@ if (alfy.cache.get(DB_QUERY_RESULT_CACHE_KEY) == null) {
   alfy.cache.set(DB_QUERY_RESULT_CACHE_KEY, rows, { maxAge: 30000 });
 }
 
-const fzf = new Fzf(alfy.cache.get(DB_QUERY_RESULT_CACHE_KEY), {
+const fzf = new AsyncFzf(alfy.cache.get(DB_QUERY_RESULT_CACHE_KEY), {
   selector: (item) => item.title,
   tiebreakers: [byLengthAsc],
+  limit: FZF_LIMIT,
 });
 
-const results = fzf.find(alfy.input ?? "");
+const results = await fzf.find(alfy.input ?? "").catch(() => {});
 
 const outputItems = results.map(({ item }) => {
   return {
