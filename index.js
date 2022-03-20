@@ -3,8 +3,9 @@ import { open } from "sqlite";
 import { AsyncFzf, byLengthAsc } from "fzf";
 import alfy from "alfy";
 
-// const SAFARI_HISTORY_DB_PATH = '~/Library/Safari/History.db';
-const SAFARI_HISTORY_DB_PATH = "/tmp/safari-history.db"; // TODO: Need to bypass security during dev
+// Script filter copies Safari History DB file to this location,
+// to get around permission issue
+const SAFARI_HISTORY_DB_PATH = "/tmp/safari-history.db";
 const QUERY_LIMIT = 1000;
 const DB_QUERY_RESULT_CACHE_KEY = "db_query_result";
 const FZF_LIMIT = 15;
