@@ -7,7 +7,21 @@
 	<key>category</key>
 	<string>Internet</string>
 	<key>connections</key>
-	<dict/>
+	<dict>
+		<key>B72F7D7B-1E7B-4B55-90C3-CFC6B5EA5522</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>DAD248F2-1355-409D-A19A-553B02AE756A</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
 	<key>createdby</key>
 	<string>Tuan Nguyen</string>
 	<key>description</key>
@@ -67,6 +81,25 @@
 			<key>version</key>
 			<integer>3</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>browser</key>
+				<string></string>
+				<key>spaces</key>
+				<string></string>
+				<key>url</key>
+				<string></string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>DAD248F2-1355-409D-A19A-553B02AE756A</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string></string>
@@ -76,6 +109,13 @@
 		<dict>
 			<key>xpos</key>
 			<integer>205</integer>
+			<key>ypos</key>
+			<integer>85</integer>
+		</dict>
+		<key>DAD248F2-1355-409D-A19A-553B02AE756A</key>
+		<dict>
+			<key>xpos</key>
+			<integer>490</integer>
 			<key>ypos</key>
 			<integer>85</integer>
 		</dict>
