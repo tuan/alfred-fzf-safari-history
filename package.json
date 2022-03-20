@@ -1,0 +1,15 @@
+{
+  "name": "alfred-fzf-safari-history",
+  "version": "1.0.0",
+  "description": "Fuzzy search safari history",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tuan Nguyen",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "alfy": "^0.12.3"
+  }
+}
