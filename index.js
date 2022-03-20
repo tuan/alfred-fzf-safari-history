@@ -48,4 +48,4 @@ const outputItems = results.map(({ item }) => {
   };
 });
 
-alfy.output(outputItems.slice(0, 1));
+alfy.output(outputItems);
