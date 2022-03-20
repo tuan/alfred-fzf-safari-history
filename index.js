@@ -41,6 +41,7 @@ const fzf = new AsyncFzf(alfy.cache.get(DB_QUERY_RESULT_CACHE_KEY), {
 
 const results = await fzf.find(alfy.input ?? "").catch(() => {});
 
+const iconPath = alfy.icon.get("GenericURLIcon");
 const outputItems = results.map(({ item }) => {
   return {
     quicklookurl: item.url,
@@ -48,6 +49,7 @@ const outputItems = results.map(({ item }) => {
     title: item.title,
     subtitle: item.url,
     arg: item.url,
+    icon: { path: iconPath },
   };
 });
 
