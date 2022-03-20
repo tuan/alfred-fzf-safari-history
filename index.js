@@ -11,17 +11,17 @@ const db = await open({
 
 const rows = await db.all(`
   SELECT
-    v.title,
-    i.url,
-    i.visit_count_score
+    visits.title,
+    items.url,
+    items.visit_count_score
   FROM
-    history_items i
-  JOIN history_visits v
-    ON v.history_item = i.id
+    history_items items
+  JOIN history_visits visits
+    ON visits.history_item = items.id
   GROUP BY
-    v.title
+    visits.title
   ORDER BY
-    v.visit_time DESC
+    visits.visit_time DESC
   LIMIT 3
 `);
 
