@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "Fuzzy search safari history",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "Tuan Nguyen",
+  "scripts": {
+		"postinstall": "alfy-init",
+		"preuninstall": "alfy-cleanup"
+	},
   "license": "MIT",
   "type": "module",
   "dependencies": {
