@@ -1,10 +1,10 @@
 import sqlite3 from 'sqlite3'
 import { open } from 'sqlite'
 import { Fzf, byLengthAsc } from 'fzf'
+import alfy from 'alfy';
 
 // const SAFARI_HISTORY_DB_PATH = '~/Library/Safari/History.db';
 const SAFARI_HISTORY_DB_PATH = '/tmp/safari-history.db'; // TODO: Need to bypass security during dev
-const SEARCH_QUERY = 'node'; // TODO: will be replaced by alfred query input
 const QUERY_LIMIT = 1000;
 
 const db = await open({
@@ -32,5 +32,15 @@ const fzf = new Fzf(rows, {
   tiebreakers: [byLengthAsc]
 });
 
-const results = fzf.find(SEARCH_QUERY);
-console.log(results);
+const results = fzf.find(alfy.input ?? '');
+
+const outputItems = results.map(({item})=> {
+  return {
+    'quicklookurl':item.url,
+    'uid':item.url,
+    'title':item.title,
+    'subtitle': item.url,
+  };
+});
+
+alfy.output(outputItems);
