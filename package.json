@@ -10,6 +10,7 @@
   "license": "MIT",
   "type": "module",
   "dependencies": {
-    "alfy": "^0.12.3"
+    "alfy": "^0.12.3",
+    "sqlite3": "^5.0.2"
   }
 }
