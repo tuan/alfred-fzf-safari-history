@@ -60,7 +60,7 @@
 				<key>runningsubtext</key>
 				<string></string>
 				<key>script</key>
-				<string>cp ~/Library/Safari/History.db /tmp/safari-history.db &amp;&amp; ./node_modules/.bin/run-node index.js "$1"</string>
+				<string>yes | cp ~/Library/Safari/History.db /tmp/safari-history.db &amp;&amp; ./node_modules/.bin/run-node index.js "$1"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
