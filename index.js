@@ -1,13 +1,13 @@
 import sqlite3 from "sqlite3";
 import { open } from "sqlite";
-import { AsyncFzf, byLengthAsc } from "fzf";
+import { AsyncFzf, byStartAsc } from "fzf";
 import alfy from "alfy";
 import { formatRelative } from "date-fns";
 
 // Script filter copies Safari History DB file to this location,
 // to get around permission issue
 const SAFARI_HISTORY_DB_PATH = "/tmp/safari-history.db";
-const QUERY_LIMIT = 1000;
+const QUERY_LIMIT = 10000;
 const DB_QUERY_RESULT_CACHE_KEY = "db_query_result";
 const FZF_LIMIT = 15;
 
@@ -48,6 +48,7 @@ if (alfy.cache.get(DB_QUERY_RESULT_CACHE_KEY) == null) {
 
 const fzf = new AsyncFzf(alfy.cache.get(DB_QUERY_RESULT_CACHE_KEY), {
   selector: (item) => item.title,
+  tiebreakers: [byStartAsc],
   limit: FZF_LIMIT,
 });
 
