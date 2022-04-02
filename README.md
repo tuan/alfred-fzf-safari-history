@@ -29,4 +29,4 @@ You can limit the search scope to a particular domain by specifying the domain n
 
 Example: `sh @git <fuzzy search keywors>` will perform the search for all pages whose domain includes the word `git`.
 
-![screenshot]('media/screenshot.png')
+<img src='media/screenshot.png'/>
