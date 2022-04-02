@@ -56,7 +56,9 @@ if (alfy.cache.get(dbCacheKey) == null) {
   alfy.cache.set(dbCacheKey, rows, { maxAge: 30000 });
 }
 
-const fzfQuery = hasDomain ? keywords.slice(1).join(" ") : input;
+// Scope search directive is `@domain<space>`, so +2
+const fzfQueryStart = hasDomain ? domain.length + 2 : 0;
+const fzfQuery = input.substring(fzfQueryStart);
 const cached = alfy.cache.get(dbCacheKey);
 
 const fzf = new AsyncFzf(cached, {
