@@ -48,7 +48,6 @@ if (alfy.cache.get(DB_QUERY_RESULT_CACHE_KEY) == null) {
 
 const fzf = new AsyncFzf(alfy.cache.get(DB_QUERY_RESULT_CACHE_KEY), {
   selector: (item) => item.title,
-  sort: false,
   limit: FZF_LIMIT,
 });
 
