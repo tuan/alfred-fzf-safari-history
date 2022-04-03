@@ -78,5 +78,8 @@ async function queryHistoryAsync(domainSqlLikeExpression, historyResultLimit) {
     LIMIT ${historyResultLimit}
   `;
 
-  return await db.all(sqlQuery);
+  const data = await db.all(sqlQuery);
+  alfy.cache.set(dbCacheKey, data, { maxAge: 60000 });
+
+  return data;
 }
