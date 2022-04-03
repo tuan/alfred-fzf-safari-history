@@ -60,13 +60,13 @@
           <key>runningsubtext</key>
           <string/>
           <key>script</key>
-          <string>yes | cp ~/Library/Safari/History.db /tmp/safari-history.db &amp;&amp; ./node_modules/.bin/run-node index.js "$1"</string>
+          <string>rsync --update ~/Library/Safari/History.db /tmp/safari-history.db &amp;&amp; ./node_modules/.bin/run-node index.js "$1"</string>
           <key>scriptargtype</key>
           <integer>1</integer>
           <key>scriptfile</key>
           <string/>
           <key>subtext</key>
-          <string>Update available: 1.1.2 → 1.1.1. Run `npm install -g alfred-fzf-safari-history`</string>
+          <string></string>
           <key>title</key>
           <string>Fuzzy search safari history</string>
           <key>type</key>
