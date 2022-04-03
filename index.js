@@ -25,7 +25,12 @@ let domain = hasDomain ? keywords[0].substring(1) : "";
 const fzfQueryStart = hasDomain ? domain.length + 2 : 0;
 const fzfQuery = input.substring(fzfQueryStart);
 
-const fzf = await createFzfInstanceAsync(domain, QUERY_LIMIT, FZF_LIMIT);
+const fzf = await createFzfInstanceAsync(
+  domain,
+  fzfQuery.length,
+  QUERY_LIMIT,
+  FZF_LIMIT
+);
 const results = await fzf.find(fzfQuery).catch(() => {});
 
 const iconPath = alfy.icon.get("GenericURLIcon");

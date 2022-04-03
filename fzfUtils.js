@@ -10,7 +10,7 @@ const DB_CACHE_KEY_PREFIX = "CACHED_FZF_INSTANCE";
 
 const db = await open({
   filename: SAFARI_HISTORY_DB_PATH,
-  driver: sqlite3.Database,
+  driver: sqlite3.cached.Database,
 });
 
 /**
@@ -24,6 +24,7 @@ const db = await open({
  */
 export async function createFzfInstanceAsync(
   domain,
+  queryLength,
   historyResultLimit,
   fzfResultLimit
 ) {
@@ -32,7 +33,20 @@ export async function createFzfInstanceAsync(
     selector: (item) => item.title,
     tiebreakers: [byStartAsc],
     limit: fzfResultLimit,
+    fuzzy: getFuzzyOption(queryLength),
   });
+}
+
+function getFuzzyOption(queryLength) {
+  if (queryLength === 0) {
+    return false;
+  }
+
+  if (queryLength <= 3) {
+    return "v1";
+  }
+
+  return "v2";
 }
 
 async function queryHistoryAsync(domain, historyResultLimit) {
