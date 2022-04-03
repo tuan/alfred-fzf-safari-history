@@ -56,6 +56,12 @@ const outputItems = results.map(({ item }) => {
     subtitle: `${relativeVisitTime} - ${item.url}`,
     arg: item.url,
     icon: { path: iconPath },
+    mods: {
+      ctrl: {
+        arg: item.url,
+        subtitle: `Copy & Paste ${item.url} `,
+      },
+    },
   };
 });
 
