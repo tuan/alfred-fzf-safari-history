@@ -15,18 +15,27 @@ function convertAppleTimeToJsTime(appleTime) {
   return new Date(jsTimestamp);
 }
 
+const domainKeywordRegex = /(?:^|\s)@(\b[^@\s]+)/gm;
+
+function processInput(input) {
+  const domainKeywords = [];
+  let nextGroup = domainKeywordRegex.exec(input);
+  while (nextGroup != null) {
+    domainKeywords.push(nextGroup[1]);
+    nextGroup = domainKeywordRegex.exec(input);
+  }
+
+  const query = input.replace(domainKeywordRegex, "");
+  return { domainKeywords, query };
+}
+
 const input = (alfy.input ?? "").trim();
-
-const keywords = input.split(" ").filter((kw) => kw.trim().length > 0);
-const hasDomain = keywords.length > 0 && keywords[0].startsWith("@");
-let domain = hasDomain ? keywords[0].substring(1) : "";
-
-// Scope search directive is `@domain<space>`, so +2
-const fzfQueryStart = hasDomain ? domain.length + 2 : 0;
-const fzfQuery = input.substring(fzfQueryStart);
+const { domainKeywords, query } = processInput(input);
+const domainSqlLikeExpression = domainKeywords.join("%");
+const fzfQuery = query.trim(); // trim spaces when query is in between domain keywords
 
 const fzf = await createFzfInstanceAsync(
-  domain,
+  domainSqlLikeExpression,
   fzfQuery.length,
   QUERY_LIMIT,
   FZF_LIMIT

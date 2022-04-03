@@ -25,8 +25,12 @@ Default prefix to trigger the workflow is: `sh`
 
 ### Scope search
 
-You can limit the search scope to a particular domain by specifying the domain name in the first keyword.
+You can limit the search scope to a particular domain by specifying the domain keywords with @ prefix.
 
-Example: `sh @git <fuzzy search keywors>` will perform the search for all pages whose domain includes the word `git`.
+Example:
+
+1. `sh @git <fuzzy search keywords>` will perform the search for all pages whose domain includes the word `git`.
+2. `sh <fuzzy search keywords> @git` does the same thing as above.
+3. `sh @git <fuzzy search keywords> @lab` will perform the search for all pages whose domain is `git.*lab`, for example: `gitlab.com` instead of `github.com`
 
 <img src='media/screenshot.png'/>

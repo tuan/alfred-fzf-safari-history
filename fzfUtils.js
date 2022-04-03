@@ -17,18 +17,21 @@ const db = await open({
  * Returns a cached Fzf instance for the given domain
  *
  * @export
- * @param {*} domain
+ * @param {*} domainSqlLikeExpression
  * @param {*} historyResultLimit max number of items in history to search
  * @param {*} fzfResultLimit max number of fuzzy results to return
  * @return {*} fzf instance
  */
 export async function createFzfInstanceAsync(
-  domain,
+  domainSqlLikeExpression,
   queryLength,
   historyResultLimit,
   fzfResultLimit
 ) {
-  const rows = await queryHistoryAsync(domain, historyResultLimit);
+  const rows = await queryHistoryAsync(
+    domainSqlLikeExpression,
+    historyResultLimit
+  );
   return new AsyncFzf(rows, {
     selector: (item) => item.title,
     tiebreakers: [byStartAsc],
@@ -49,8 +52,8 @@ function getFuzzyOption(queryLength) {
   return "v2";
 }
 
-async function queryHistoryAsync(domain, historyResultLimit) {
-  const dbCacheKey = `${DB_CACHE_KEY_PREFIX}-${domain}-${historyResultLimit}`;
+async function queryHistoryAsync(domainSqlLikeExpression, historyResultLimit) {
+  const dbCacheKey = `${DB_CACHE_KEY_PREFIX}-${domainSqlLikeExpression}-${historyResultLimit}`;
   const cachedData = alfy.cache.get(dbCacheKey);
   if (cachedData != null) {
     return cachedData;
@@ -66,7 +69,7 @@ async function queryHistoryAsync(domain, historyResultLimit) {
     JOIN history_visits visits
       ON visits.history_item = items.id
     WHERE
-      SUBSTR(SUBSTR(items.url, INSTR(items.url, '//') + 2), 0, INSTR(SUBSTR(items.url, INSTR(items.url, '//') + 2), '/')) LIKE '%${domain}%' AND
+      SUBSTR(SUBSTR(items.url, INSTR(items.url, '//') + 2), 0, INSTR(SUBSTR(items.url, INSTR(items.url, '//') + 2), '/')) LIKE '%${domainSqlLikeExpression}%' AND
       visits.title IS NOT NULL
     GROUP BY
       visits.title

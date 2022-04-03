@@ -1,6 +1,6 @@
 {
   "name": "alfred-fzf-safari-history",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Fuzzy search safari history",
   "repository": "tuan/alfred-fzf-safari-history",
   "main": "index.js",
