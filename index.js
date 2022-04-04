@@ -2,6 +2,7 @@ import alfy from "alfy";
 import { formatRelative } from "date-fns";
 import { createFzfInstanceAsync } from "./fzfUtils.js";
 
+const ICON_PATH = "./icon.png";
 const QUERY_LIMIT = 10000;
 const FZF_LIMIT = 15;
 
@@ -42,7 +43,6 @@ const fzf = await createFzfInstanceAsync(
 );
 const results = await fzf.find(fzfQuery).catch(() => {});
 
-const iconPath = alfy.icon.get("GenericURLIcon");
 const now = Date.now();
 
 const outputItems = results.map(({ item }) => {
@@ -55,7 +55,7 @@ const outputItems = results.map(({ item }) => {
     title: item.title,
     subtitle: `${relativeVisitTime} - ${item.url}`,
     arg: item.url,
-    icon: { path: iconPath },
+    icon: { path: ICON_PATH },
     mods: {
       ctrl: {
         arg: item.url,
