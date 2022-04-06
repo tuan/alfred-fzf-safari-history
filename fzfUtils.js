@@ -69,7 +69,7 @@ async function queryHistoryAsync(domainSqlLikeExpression, historyResultLimit) {
     JOIN history_visits visits
       ON visits.history_item = items.id
     WHERE
-      SUBSTR(SUBSTR(items.url, INSTR(items.url, '//') + 2), 0, INSTR(SUBSTR(items.url, INSTR(items.url, '//') + 2), '/')) LIKE '%${domainSqlLikeExpression}%' AND
+      CASE WHEN INSTR(url, "?") > 0 THEN SUBSTR(url, 0, INSTR(url, "?") - 1) ELSE url END LIKE '%${domainSqlLikeExpression}%' AND
       visits.title IS NOT NULL
     GROUP BY
       visits.title
