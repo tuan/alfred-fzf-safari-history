@@ -16,7 +16,7 @@ function convertAppleTimeToJsTime(appleTime) {
   return new Date(jsTimestamp);
 }
 
-const domainKeywordRegex = /(?:^|\s)@(\b[^@\s]+)/gm;
+const domainKeywordRegex = /(?:^|\s)@(\b[^@\s]+)(?:$|\s)/gm;
 
 function processInput(input) {
   const domainKeywords = [];
