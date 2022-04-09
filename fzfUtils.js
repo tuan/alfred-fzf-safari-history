@@ -63,7 +63,7 @@ async function queryHistoryAsync(domainSqlLikeExpression, historyResultLimit) {
     SELECT
       visits.title,
       items.url,
-      visits.visit_time
+      (visits.visit_time+978307200)*1000 AS visit_time
     FROM
       history_items items
     JOIN history_visits visits

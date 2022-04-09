@@ -6,16 +6,6 @@ const ICON_PATH = "./icon.png";
 const QUERY_LIMIT = 10000;
 const FZF_LIMIT = 15;
 
-/**
- * A Core Data timestamp is the number of seconds since midnight, January 1, 2001, GMT.
- * The difference between a Core Data timestamp and a Unix timestamp (seconds since 1/1/1970)
- * is 978307200 seconds.
- */
-function convertAppleTimeToJsTime(appleTime) {
-  const jsTimestamp = (appleTime + 978307200) * 1000;
-  return new Date(jsTimestamp);
-}
-
 const domainKeywordRegex = /(?:^|\s)@(\b[^@\s]+)(?:$|\s)/gm;
 
 function processInput(input) {
@@ -46,8 +36,7 @@ const results = await fzf.find(fzfQuery).catch(() => {});
 const now = Date.now();
 
 const outputItems = results.map(({ item }) => {
-  const visitTime = convertAppleTimeToJsTime(item.visit_time);
-  const relativeVisitTime = formatRelative(visitTime, now);
+  const relativeVisitTime = formatRelative(new Date(item.visit_time), now);
 
   return {
     quicklookurl: item.url,
